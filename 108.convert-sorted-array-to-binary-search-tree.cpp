@@ -22,11 +22,18 @@ using namespace std;
 
 class Solution {
 public:
+  TreeNode *buildTree(const std::vector<int> &nums, int lower, int upper) {
+    if (lower > upper) {
+      return nullptr;
+    }
+    const auto median = (lower + upper) / 2;
+    TreeNode *node = new TreeNode(nums[median]);
+    node->left = buildTree(nums, lower, median - 1);
+    node->right = buildTree(nums, median + 1, upper);
+    return node;
+  }
   TreeNode *sortedArrayToBST(vector<int> &nums) {
-    int lower = 0;
-    int upper = nums.size() - 1;
-    int median = (lower + upper) / 2;
-    while ()
+    return buildTree(nums, 0, nums.size() - 1);
   }
 };
 // @lc code=end

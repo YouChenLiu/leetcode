@@ -8,53 +8,26 @@
 using namespace std;
 
 // @lc code=start
+#include <string>
+#include <vector>
 
+using namespace std;
 class Solution {
 public:
-  int cvt(char c) {
-    int val = 0;
-    switch (c) {
-    case 'I':
-      val = 1;
-      break;
-    case 'V':
-      val = 5;
-      break;
-    case 'X':
-      val = 10;
-      break;
-    case 'L':
-      val = 50;
-      break;
-    case 'C':
-      val = 100;
-      break;
-    case 'D':
-      val = 500;
-      break;
-    case 'M':
-      val = 1000;
-      break;
-    }
-    return val;
-  }
-  int romanToInt(string s) {
-    auto last = s[0];
-    auto lastVal = cvt(last);
-    int sum = cvt(last);
-
-    for (std::size_t i = 1; i < s.length(); i++) {
-      const auto current = s[i];
-      const auto currentVal = cvt(current);
-      sum += currentVal;
-      if (lastVal < currentVal) {
-        sum -= 2 * lastVal;
+  string intToRoman(int num) {
+    std::string ans;
+    std::vector<int> digits{1000, 900, 500, 400, 100, 90, 50,
+                            40,   10,  9,   5,   4,   1};
+    std::vector<string> table{"M",  "CM", "D",  "CD", "C",  "XC", "L",
+                              "XL", "X",  "IX", "V",  "IV", "I"};
+    for (std::size_t i = 0; i < digits.size(); i++) {
+      while (num >= digits[i]) {
+        // std::cout << digits[i] << " " << table[i] << std::endl;
+        num -= digits[i];
+        ans.append(table[i]);
       }
-      last = current;
-      lastVal = currentVal;
     }
-
-    return sum;
+    return ans;
   }
 };
 // @lc code=end
